@@ -15,12 +15,12 @@ const HomePage = () => {
             <div className="row">
                 {
                     isLogged &&
-                    <div className="col">
+                    <div className="col-12 col-sm-6">
                         <PostSubmit/>
                         <PostList/>
                     </div>
                 }
-                <div className="col">
+                <div className={isLogged ? "col-sm-6 col-12 mt-4" : "col-12"}>
                     <UserList/>
                 </div>
             </div>
