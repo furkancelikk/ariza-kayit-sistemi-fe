@@ -14,11 +14,14 @@ const PostListItem = (props) => {
     const {i18n} = useTranslation();
     const formattedTime = format(post.timestamp, i18n.language);
     const [modalVisible, setModalVisible] = useState(false);
+    const [deleteApiProgress, setDeleteApiProgress] = useState(false);
 
     const onClickDelete = async () => {
-        // const response = await deletePost(post.id);
-        // onPostDeleteSucces(post.id);
-        setModalVisible(true);
+        setDeleteApiProgress(true);
+        const response = await deletePost(post.id);
+        onPostDeleteSucces(post.id);
+        setDeleteApiProgress(false);
+        setModalVisible(false);
     }
 
     const onDeleteCancel = () => {
@@ -37,22 +40,23 @@ const PostListItem = (props) => {
                     </Link>
                     {
                         loggedUsername === user?.username &&
-                        <button onClick={onClickDelete} className="btn btn-delete-link" style={{outline: "none"}}>
+                        <button onClick={() => setModalVisible(true)} className="btn btn-delete-link" style={{outline: "none"}}>
                             <span className="material-icons">delete</span>
                         </button>
                     }
                 </div>
                 <div className="container py-2">
                     <div className={attachment ? "row" : ""}>
-                        <div className="col-12 col-sm-9">
+                        <div className="col-12 mb-2">
                             {content}
                         </div>
                         {
                             attachment &&
-                            <div className="col-12 col-sm-3 d-flex align-items-center justify-content-center">
+                            <div className="col-12 d-flex align-items-center justify-content-center">
                                 {
                                     attachment.fileType?.startsWith("image") ?
-                                        <img style={{objectFit: "contain", height: "300px", width: "150px"}}
+                                        // style={{objectFit: "contain", height: "300px", width: "150px"}}
+                                        <img className="img-fluid"
                                              src={`/images/attachment/${attachment.name}`} alt="attachment"/>
                                         :
                                         <span>Unknown file</span>
@@ -65,7 +69,8 @@ const PostListItem = (props) => {
                     </div>
                 </div>
             </div>
-            <Modal visible={modalVisible} onDeleteCancel={onDeleteCancel}
+            <Modal visible={modalVisible} onCancel={onDeleteCancel} onSubmit={onClickDelete} apiCall={deleteApiProgress}
+                   submitText="Delete" submitBtnClass="btn-danger"
                    message={
                        <div className="word-wrap">
                            <div className="font-weight-bold">

@@ -1,12 +1,13 @@
 import React from 'react';
 import {fa} from "timeago.js/lib/lang";
+import ButtonWithProgress from "./ButtonWithProgress";
 
 const Modal = (props) => {
 
-    const {visible, onDeleteCancel, message} = props;
+    const {visible, onCancel, onSubmit, apiCall, message, submitText, submitBtnClass} = props;
 
     let className = "modal fade";
-    if (visible){
+    if (visible) {
         className += " show d-block";
     }
 
@@ -16,8 +17,9 @@ const Modal = (props) => {
             <div className="modal-dialog modal-dialog-scrollable" role="document">
                 <div className="modal-content">
                     <div className="modal-header">
-                        <h5 className="modal-title" >Delete Post</h5>
-                        <button onClick={onDeleteCancel} type="button" className="close" data-dismiss="modal" aria-label="Close">
+                        <h5 className="modal-title">Delete Post</h5>
+                        <button onClick={onCancel} type="button" className="close" data-dismiss="modal"
+                                aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
@@ -25,8 +27,14 @@ const Modal = (props) => {
                         {message}
                     </div>
                     <div className="modal-footer">
-                        <button onClick={onDeleteCancel} type="button" className="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                        <button type="button" className="btn btn-danger">Delete</button>
+                        <button onClick={onCancel} type="button" className="btn btn-secondary"
+                                data-dismiss="modal">Cancel
+                        </button>
+                        {/*<button type="button" className="btn btn-danger">Delete</button>*/}
+                        <ButtonWithProgress disabled={apiCall} onClick={onSubmit} isApiCall={apiCall}
+                                            text={submitText || "Submit"}
+                                            className={"btn " + (submitBtnClass ? submitBtnClass : "")}
+                        />
                     </div>
                 </div>
             </div>
