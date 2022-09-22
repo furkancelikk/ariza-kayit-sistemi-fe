@@ -3,6 +3,7 @@ import UserList from "./UserList";
 import PostSubmit from "./PostSubmit";
 import {useSelector} from "react-redux";
 import PostList from "./PostList";
+import Post from "./Post";
 
 const HomePage = () => {
 
@@ -15,12 +16,11 @@ const HomePage = () => {
             <div className="row">
                 {
                     isLogged &&
-                    <div className="col-12 col-sm-6">
-                        <PostSubmit/>
-                        <PostList/>
+                    <div className="col-12 col-sm-6 mb-4">
+                        <Post/>
                     </div>
                 }
-                <div className={isLogged ? "col-sm-6 col-12 mt-4" : "col-12"}>
+                <div className={isLogged ? "col-sm-6 col-12" : "col-12"}>
                     <UserList/>
                 </div>
             </div>

@@ -69,7 +69,7 @@ const PostListItem = (props) => {
                     </div>
                 </div>
             </div>
-            <Modal visible={modalVisible} onCancel={onDeleteCancel} onSubmit={onClickDelete} apiCall={deleteApiProgress}
+            <Modal title="Delete Post" visible={modalVisible} onCancel={onDeleteCancel} onSubmit={onClickDelete} apiCall={deleteApiProgress}
                    submitText="Delete" submitBtnClass="btn-danger"
                    message={
                        <div className="word-wrap">

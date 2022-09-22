@@ -85,7 +85,7 @@ const PostSubmit = () => {
     }
 
     return (
-        <div className="card p-2">
+        <div className="card p-2 mb-4">
             <div className="mb-2">
                 <Link className="d-inline-flex align-items-center text-body text-decoration-none"
                       to={"user/" + username}>

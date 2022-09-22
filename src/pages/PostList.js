@@ -73,8 +73,6 @@ const PostList = (props) => {
         setNewPostCount(0);
     }
 
-
-
     useEffect(() => {
         loadPosts();
     }, []);
@@ -101,10 +99,9 @@ const PostList = (props) => {
     }
 
     return (
-        <div className="mt-3">
-            <h5>Posts</h5>
+        <div>
             {
-                page.content.length < 1 &&
+                (page.content.length < 1 && newPostCount == 0) &&
                 <div className="alert alert-secondary text-center">
                     {isApiCall ? <Spinner/> : "There are no posts"}
                 </div>

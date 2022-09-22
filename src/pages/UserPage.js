@@ -56,9 +56,15 @@ const UserPage = () => {
     }
 
     return (
-        <div>
-            <ProfileCard user={user}/>
-            <PostList username={params.username}/>
+        <div className="container">
+            <div className="row">
+                <div className="col mb-4">
+                    <ProfileCard user={user}/>
+                </div>
+                <div className="col">
+                    <PostList username={params.username}/>
+                </div>
+            </div>
         </div>
     );
 };

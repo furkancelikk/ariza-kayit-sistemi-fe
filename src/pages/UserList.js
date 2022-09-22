@@ -61,7 +61,6 @@ const UserList = () => {
 
     return (
         <div>
-            {/*<h3>User List</h3>*/}
             <div className="card">
                 <div className="card-header bg-info">
                     <h4 className="card-title text-center text-light">Users</h4>

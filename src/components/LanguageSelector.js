@@ -1,6 +1,7 @@
 // import i18n from "i18next";
 import {useState} from "react";
 import {useTranslation} from "react-i18next";
+import {setAxiosDefaultLanguage} from "../api/apiCalls";
 
 function LanguageSelector(){
 
@@ -11,6 +12,7 @@ function LanguageSelector(){
         i18n.changeLanguage(language);
         localStorage.setItem("lang", language);
         setLang(language);
+        setAxiosDefaultLanguage(language);
     }
 
     return(

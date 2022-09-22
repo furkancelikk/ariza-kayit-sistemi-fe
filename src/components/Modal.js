@@ -4,7 +4,7 @@ import ButtonWithProgress from "./ButtonWithProgress";
 
 const Modal = (props) => {
 
-    const {visible, onCancel, onSubmit, apiCall, message, submitText, submitBtnClass} = props;
+    const {visible, onCancel, onSubmit, apiCall, title, message, submitText, submitBtnClass} = props;
 
     let className = "modal fade";
     if (visible) {
@@ -17,7 +17,7 @@ const Modal = (props) => {
             <div className="modal-dialog modal-dialog-scrollable" role="document">
                 <div className="modal-content">
                     <div className="modal-header">
-                        <h5 className="modal-title">Delete Post</h5>
+                        <h5 className="modal-title">{title}</h5>
                         <button onClick={onCancel} type="button" className="close" data-dismiss="modal"
                                 aria-label="Close">
                             <span aria-hidden="true">&times;</span>
