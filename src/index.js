@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import "./bootstrap-override.scss";
+import "bootstrap/dist/js/bootstrap";
 import "./i18n";
 import {Provider} from "react-redux";
 import configureStore from "./redux/store";

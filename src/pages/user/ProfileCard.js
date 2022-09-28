@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import {useHistory, useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import ProfileImage from "../components/ProfileImage";
-import Input from "../components/Input";
-import {deleteUser, updateUser} from "../api/apiCalls";
-import ButtonWithProgress from "../components/ButtonWithProgress";
-import {logoutSuccess, updateSuccess} from "../redux/AuthActions";
-import Modal from "../components/Modal";
+import ProfileImage from "../../components/ProfileImage";
+import Input from "../../components/Input";
+import {deleteUser, updateUser} from "../../api/apiCalls";
+import ButtonWithProgress from "../../components/ButtonWithProgress";
+import {logoutSuccess, updateSuccess} from "../../redux/AuthActions";
+import Modal from "../../components/Modal";
 
 const ProfileCard = (props) => {
 

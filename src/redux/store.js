@@ -16,7 +16,8 @@ const getStateFromStorage = () => {
         username: null,
         displayName: null,
         image: null,
-        password: null
+        password: null,
+        role: null
     };
     if (authState) return authState;
 

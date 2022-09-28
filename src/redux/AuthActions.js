@@ -43,10 +43,10 @@ export const loginHandler = (creds) => {
     }
 }
 
-export const signupHandler = body => {
+export const signupHandler = (body, role) => {
     return async function (dispatch) {
-        const response = await signUp(body);
-        await dispatch(loginHandler(body));
+        const response = await signUp(body, role);
+        // await dispatch(loginHandler(body));
         return response;
     }
 }

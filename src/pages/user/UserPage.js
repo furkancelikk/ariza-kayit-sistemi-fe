@@ -1,9 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import ProfileCard from "./ProfileCard";
-import {getUserByUsername} from "../api/apiCalls";
+import {getUserByUsername} from "../../api/apiCalls";
 import {useParams} from "react-router-dom";
-import Spinner from "../components/Spinner";
-import PostList from "./PostList";
+import Spinner from "../../components/Spinner";
+import PostList from "../post/PostList";
+import * as UserRole from "../../shared/UserRole";
+import Category from "../category/Category";
 
 const UserPage = () => {
 
@@ -58,11 +60,18 @@ const UserPage = () => {
     return (
         <div className="container">
             <div className="row">
-                <div className="col mb-4">
+                <div className={user.role != UserRole.ADMIN ? "col-12 col-md-6 mb-4" : "col-12 mb-4"}>
                     <ProfileCard user={user}/>
                 </div>
-                <div className="col">
-                    <PostList username={params.username}/>
+                <div className="col-12 col-md-6">
+                    {
+                        user.role == UserRole.USER &&
+                        <PostList username={params.username}/>
+                    }
+                    {
+                        user.role == UserRole.PERSONNEL &&
+                        <Category role={UserRole.PERSONNEL}/>
+                    }
                 </div>
             </div>
         </div>

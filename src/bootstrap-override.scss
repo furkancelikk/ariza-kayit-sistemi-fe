@@ -13,3 +13,34 @@
 }
 
 .word-wrap{word-wrap: break-word;}
+
+.post-item-card{
+  transition: 300ms all ease-in-out;
+}
+
+.post-item-card:hover{
+  border: #000 1px solid;
+}
+
+.post-item-content:hover{
+  cursor: pointer;
+}
+
+.hamburger-menu{
+  transition: 1s all ease-in-out;
+}
+
+.checkbox{
+  cursor: pointer;
+}
+
+.checkbox:after {
+  content: " ";
+  background-color: #D7B1D7;
+  display: inline-block;
+  visibility: visible;
+}
+
+.checkbox:checked:after {
+  content: "\2714";
+}

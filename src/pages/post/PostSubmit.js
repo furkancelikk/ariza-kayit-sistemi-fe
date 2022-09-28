@@ -1,12 +1,12 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {useSelector} from "react-redux";
-import ProfileImage from "../components/ProfileImage";
+import ProfileImage from "../../components/ProfileImage";
 import {Link} from "react-router-dom";
-import {createFaultRecord, postAttachment} from "../api/apiCalls";
-import ButtonWithProgress from "../components/ButtonWithProgress";
-import Input from "../components/Input";
-import {fa, tr} from "timeago.js/lib/lang";
-import AutoUploadImage from "../components/AutoUploadImage";
+import {createFaultRecord, getCategories, postAttachment} from "../../api/apiCalls";
+import ButtonWithProgress from "../../components/ButtonWithProgress";
+import Input from "../../components/Input";
+import AutoUploadImage from "../../components/AutoUploadImage";
+import {toastError, toastSuccess} from "../../shared/notifyToast";
 
 const PostSubmit = () => {
 
@@ -17,6 +17,8 @@ const PostSubmit = () => {
         username: store.username
     }));
 
+    const [categoryList, setCategoryList] = useState([]);
+    const [categoryID, setCategoryID] = useState(0);
     const [newImage, setNewImage] = useState();
     const [attachmentID, setAttachmentID] = useState();
     const [isFocused, setIsFocused] = useState(false);
@@ -26,10 +28,21 @@ const PostSubmit = () => {
     const [errors, setErrors] = useState({});
 
     useEffect(() => {
+        const getCategoryList = async () => {
+            const response = await getCategories(true);
+            setCategoryList(response.data);
+        }
+
+        getCategoryList();
+    }, []);
+
+    useEffect(() => {
         if (!isFocused) {
             setContent("");
             setNewImage(null);
             setAttachmentID(null);
+            setCategoryID(0);
+            setErrors({});
         }
     }, [isFocused])
 
@@ -42,17 +55,22 @@ const PostSubmit = () => {
         setIsApiCall(true);
         const post = {
             content,
-            attachmentID
+            attachmentID,
+            categoryID: categoryID == 0 ? null : categoryID
         };
         try {
             const response = await createFaultRecord(post);
+            toastSuccess("Post Kaydedildi")
             setIsFocused(false);
         } catch (error) {
             if (error.response.data.validationErrors) {
-                setErrors(error.response.data.validationErrors)
-            }
+                setErrors(error.response.data.validationErrors);
+                toastError("Alanları uygun şekilde doldurun!");
+            }else
+                toastError("Something went wrong");
         }
         setIsApiCall(false);
+
     }
 
     const uploadFile = async (file) => {
@@ -85,7 +103,7 @@ const PostSubmit = () => {
     }
 
     return (
-        <div className="card p-2 mb-4">
+        <div className="card p-2 mb-4" style={{maxWidth: 540}}>
             <div className="mb-2">
                 <Link className="d-inline-flex align-items-center text-body text-decoration-none"
                       to={"user/" + username}>
@@ -93,14 +111,32 @@ const PostSubmit = () => {
                     <p className="m-0 ml-1">{displayName} <span className="text-black-50 small">@{username}</span></p>
                 </Link>
             </div>
+            <div className="input-group mb-3">
+                <div className="input-group-prepend">
+                    <label className="input-group-text" htmlFor="inputGroupSelect01">Category</label>
+                </div>
+                <select value={categoryID} onChange={(event) => {
+                    setCategoryID(event.target.value);
+                    setErrors(err => ({...err, categoryID: null}));
+                }} className={errors.categoryID ? "custom-select is-invalid" : "custom-select"}
+                        id="validationCustom04" required>
+                    <option disabled value={0}>Choose...</option>
+                    {
+                        categoryList.map(category => (
+                            <option key={category.name} value={category.id}>{category.name}</option>
+                        ))
+                    }
+                </select>
+                <div className="invalid-feedback">
+                    {errors.categoryID}
+                </div>
+            </div>
             <textarea className={errors.content ? "form-control is-invalid" : "form-control"} rows={isFocused ? 5 : 1}
                       onFocus={() => setIsFocused(true)}
                       value={content}
                       onChange={(event) => {
                           setContent(event.target.value);
-                          // event.target.style.height = event.target.scrollHeight+"px";
                       }}
-                // style={{height: "min-content"}}
             />
 
             <div className="invalid-feedback">{errors.content}</div>

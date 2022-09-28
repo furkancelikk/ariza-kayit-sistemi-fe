@@ -63,7 +63,7 @@ const UserList = () => {
         <div>
             <div className="card">
                 <div className="card-header bg-info">
-                    <h4 className="card-title text-center text-light">Users</h4>
+                    <h5 className="card-title text-center text-light">Users</h5>
                 </div>
                 <div>
                     <div className="list-group-flush">

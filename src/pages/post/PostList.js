@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
-import {getNewPostCount, getNewPosts, getOldPosts, getPosts} from "../api/apiCalls";
-import PostListItem from "../components/PostListItem";
-import Spinner from "../components/Spinner";
+import {getNewPostCount, getNewPosts, getOldPosts, getPosts} from "../../api/apiCalls";
+import PostListItem from "../../components/PostListItem";
+import Spinner from "../../components/Spinner";
 import {useParams} from "react-router-dom";
 
 const PostList = (props) => {
@@ -117,7 +117,7 @@ const PostList = (props) => {
 
             <div>
                 {page.content.map((post, index) => (
-                    <PostListItem post={post} key={index} onPostDeleteSucces={onPostDeleteSuccess}/>
+                    <PostListItem post={post} key={index} onPostDeleteSucces={onPostDeleteSuccess} isEditable={false}/>
                 ))}
             </div>
             {
